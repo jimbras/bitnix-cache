@@ -63,10 +63,10 @@ class RedisCacheTest extends TestCase {
         $this->assertNull($this->cache->fetch('foo'));
     }
 
-    public function testPurgeRemovesSelectedItemsFromTheCache() {
+    public function testDeleteRemovesSelectedItemsFromTheCache() {
         $this->cache->store('foo', 'bar');
         $this->cache->store('zig', 'zag');
-        $this->cache->purge('foo');
+        $this->cache->delete('foo');
         $this->assertNull($this->cache->fetch('foo'));
         $this->assertEquals('zag', $this->cache->fetch('zig'));
     }
