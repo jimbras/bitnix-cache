@@ -12,6 +12,7 @@
   "require-dev": {
     "ext-apcu": "*",
     "ext-memcached": "*",
+    "ext-redis": "*",
     "phpunit/phpunit": "^8.5"
   },
   "config": {
