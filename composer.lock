@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ecce5c05bc152d30141024da0d36040b",
+    "content-hash": "6147c687ccb54e7b5e4581e69c7bbf35",
     "packages": [],
     "packages-dev": [
         {
@@ -1534,6 +1534,7 @@
     },
     "platform-dev": {
         "ext-apcu": "*",
-        "ext-memcached": "*"
+        "ext-memcached": "*",
+        "ext-redis": "*"
     }
 }
