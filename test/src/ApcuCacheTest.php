@@ -22,43 +22,25 @@ use PHPUnit\Framework\TestCase;
 /**
  * @version 0.1.0
  */
-class FilesystemCacheTest extends TestCase {
-
-    private const ROOT = __DIR__ . '/_filesystem/_cache';
+class ApcuCacheTest extends TestCase {
 
     private Cache $cache;
 
     public function setUp() : void {
-        $this->cache = new FilesystemCache(self::ROOT);
+        $this->cache = new ApcuCache('test');
     }
 
     public function tearDown() : void {
-        foreach (\glob(self::ROOT . '/*') as $file) {
-            \unlink($file);
-        }
-<<<<<<< HEAD
-=======
-
-        foreach ([self::ROOT, \dirname(self::ROOT)] as $dir) {
-            if (\is_dir($dir)) {
-                \rmdir($dir);
-            }
-        }
->>>>>>> dev
+        \apcu_clear_cache();
     }
 
-    public function testFetchReturnsNullIfItemIsNotCached() {
+    public function testFetchReturnsNullOnCacheMiss() {
         $this->assertNull($this->cache->fetch('foo'));
     }
 
-    public function testFetchReturnsCachedItem() {
+    public function testFetchReturnsStoredItem() {
         $this->cache->store('foo', 'bar');
         $this->assertEquals('bar', $this->cache->fetch('foo'));
-    }
-
-    public function testFetchReturnsCachedItemWithCorrectType() {
-        $this->cache->store('foo', 1);
-        $this->assertSame(1, $this->cache->fetch('foo'));
     }
 
     public function testFetchReturnsNullForExpiredCachedItems() {
@@ -82,4 +64,5 @@ class FilesystemCacheTest extends TestCase {
         $this->assertNull($this->cache->fetch('foo'));
         $this->assertNull($this->cache->fetch('zig'));
     }
+
 }

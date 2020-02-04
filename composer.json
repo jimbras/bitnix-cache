@@ -10,6 +10,7 @@
     "php": ">=7.4"
   },
   "require-dev": {
+    "ext-apcu": "*",
     "phpunit/phpunit": "^8.5"
   },
   "config": {
@@ -26,6 +27,6 @@
     }
   },
   "scripts": {
-    "test": "phpunit --colors=always -c test/phpunit.xml --coverage-html test/out"
+    "test": "@php -d apc.enabled=1 -d apc.enable_cli=1 vendor/bin/phpunit --colors=always -c test/phpunit.xml --coverage-html test/out"
   }
 }
