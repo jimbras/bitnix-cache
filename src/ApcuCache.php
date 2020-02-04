@@ -66,19 +66,21 @@ final class ApcuCache extends AbstractCache {
     /**
      * @param string ...$keys
      */
-    public function purge(string ...$keys) : void {
-        if ($keys) {
-            foreach ($keys as $key) {
-                \apcu_delete($this->prefix . $key);
-            }
-        } else {
-            $items = \apcu_cache_info()['cache_list'];
+    public function delete(string ...$keys) : void {
+        foreach ($keys as $key) {
+            \apcu_delete($this->prefix . $key);
+        }
+    }
 
-            foreach ($items as $item) {
-                $key = $item['info'];
-                if (0 === \strpos($key, $this->prefix)) {
-                    \apcu_delete($key);
-                }
+    /**
+     * ...
+     */
+    public function purge() : void {
+        $items = \apcu_cache_info()['cache_list'];
+        foreach ($items as $item) {
+            $key = $item['info'];
+            if (0 === \strpos($key, $this->prefix)) {
+                \apcu_delete($key);
             }
         }
     }

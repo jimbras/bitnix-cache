@@ -58,6 +58,11 @@ interface Cache {
     /**
      * @param string ...$keys
      */
-    public function purge(string ...$keys) : void;
+    public function delete(string ...$keys) : void;
+
+    /**
+     * ...
+     */
+    public function purge() : void;
 
 }

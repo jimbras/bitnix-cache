@@ -81,15 +81,18 @@ final class MemcachedCache extends AbstractCache {
     /**
      * @param string ...$keys
      */
-    public function purge(string ...$keys) : void {
-        if ($keys) {
-            foreach ($keys as $key) {
-                $this->store->delete($this->prefix . $key);
-            }
-        } else {
-            // Memcached::getAllKeys() is not reliable, just clear everything
-            $this->store->flush();
+    public function delete(string ...$keys) : void {
+        foreach ($keys as $key) {
+            $this->store->delete($this->prefix . $key);
         }
+    }
+
+    /**
+     * ...
+     */
+    public function purge() : void {
+        // Memcached::getAllKeys() is not reliable, just clear everything
+        $this->store->flush();
     }
 
 }

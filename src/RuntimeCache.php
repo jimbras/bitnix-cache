@@ -70,15 +70,18 @@ final class RuntimeCache extends AbstractCache {
     /**
      * @param string ...$keys
      */
-    public function purge(string ...$keys) : void {
-        if ($keys) {
-            foreach ($keys as $key) {
-                if (isset($this->cache[$key])) {
-                    unset($this->cache[$key]);
-                }
+    public function delete(string ...$keys) : void {
+        foreach ($keys as $key) {
+            if (isset($this->cache[$key])) {
+                unset($this->cache[$key]);
             }
-        } else {
-            $this->cache = [];
         }
+    }
+
+    /**
+     * ...
+     */
+    public function purge() : void {
+        $this->cache = [];
     }
 }

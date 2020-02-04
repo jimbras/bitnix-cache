@@ -89,15 +89,18 @@ final class RedisCache extends AbstractCache {
     /**
      * @param string ...$keys
      */
-    public function purge(string ...$keys) : void {
-        if ($keys) {
-            foreach ($keys as $key) {
-                $this->store->del($this->prefix . $key);
-            }
-        } else {
-            foreach ($this->store->keys($this->prefix . '*') as $key) {
-                $this->store->del($key);
-            }
+    public function delete(string ...$keys) : void {
+        foreach ($keys as $key) {
+            $this->store->del($this->prefix . $key);
+        }
+    }
+
+    /**
+     * ...
+     */
+    public function purge() : void {
+        foreach ($this->store->keys($this->prefix . '*') as $key) {
+            $this->store->del($key);
         }
     }
 }

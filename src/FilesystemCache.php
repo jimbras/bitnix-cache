@@ -117,17 +117,20 @@ final class FilesystemCache extends AbstractCache {
     /**
      * @param string ...$keys
      */
-    public function purge(string ...$keys) : void {
-        if ($keys) {
-            foreach ($keys as $key) {
-                if (\is_file($file = $this->file($key))) {
-                    \unlink($file);
-                }
-            }
-        } else {
-            foreach (\glob($this->root . \DIRECTORY_SEPARATOR . '*.cache') as $file) {
+    public function delete(string ...$keys) : void {
+        foreach ($keys as $key) {
+            if (\is_file($file = $this->file($key))) {
                 \unlink($file);
             }
+        }
+    }
+
+    /**
+     * ...
+     */
+    public function purge() : void {
+        foreach (\glob($this->root . \DIRECTORY_SEPARATOR . '*.cache') as $file) {
+            \unlink($file);
         }
     }
 
