@@ -36,15 +36,12 @@ class FilesystemCacheTest extends TestCase {
         foreach (\glob(self::ROOT . '/*') as $file) {
             \unlink($file);
         }
-<<<<<<< HEAD
-=======
 
         foreach ([self::ROOT, \dirname(self::ROOT)] as $dir) {
             if (\is_dir($dir)) {
                 \rmdir($dir);
             }
         }
->>>>>>> dev
     }
 
     public function testFetchReturnsNullIfItemIsNotCached() {
