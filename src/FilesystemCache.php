@@ -83,20 +83,18 @@ final class FilesystemCache extends AbstractCache {
         $file = $this->file($key);
         $dir = \dirname($file);
 
-        if (!\is_dir($dir) && !\mkdir($dir, 0755, true)) {
-            return;
-        }
+        if (\is_dir($dir) || \mkdir($dir, 0755, true)) {
+            if ($ttl) {
+                $ttl += \time();
+            }
 
-        if ($ttl) {
-            $ttl += \time();
-        }
+            if (!\is_string($value)) {
+                $flag = 1;
+                $value = \serialize($value);
+            }
 
-        if (!\is_string($value)) {
-            $flag = 1;
-            $value = \serialize($value);
+            \file_put_contents($file, \sprintf('%s|%s|%s', $ttl, $flag, $value), LOCK_EX);
         }
-
-        \file_put_contents($file, \sprintf('%s|%s|%s', $ttl, $flag, $value), LOCK_EX);
     }
 
     /**
