@@ -11,6 +11,7 @@
   },
   "require-dev": {
     "ext-apcu": "*",
+    "ext-memcached": "*",
     "phpunit/phpunit": "^8.5"
   },
   "config": {
